@@ -1,131 +1,172 @@
-:root {
-  --background: #fff;
-  --text: #000;
-  --text-secondary: #666;
-  --spinner-border: #000;
-  --spinner-border-top: transparent;
-  --dot-color: #000;
-  --grid-color: rgba(0,0,0,0.05);
-  --gradient-color: rgba(0,0,0,0.03);
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-      --background: #000;
-      --text: #fff;
-      --text-secondary: #888;
-      --spinner-border: #fff;
-      --spinner-border-top: transparent;
-      --dot-color: #fff;
-      --grid-color: rgba(255,255,255,0.05);
-      --gradient-color: rgba(255,255,255,0.03);
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 94.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
   }
 }
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--background);
-  color: var(--text);
-  padding: 20px;
-  line-height: 1.5;
-  transition: background-color 0.3s ease, color 0.3s ease;
+
+@layer components {
+  /* Water drop animation for loading states */
+  .water-drop {
+    @apply relative;
+  }
+  
+  .water-drop::before {
+    content: '💧';
+    @apply absolute -top-1 -left-1 text-blue-500 animate-bounce;
+  }
+
+  /* Gradient background for water theme */
+  .water-gradient {
+    background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 50%, #81d4fa 100%);
+  }
+
+  /* Custom scrollbar for water theme */
+  .water-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .water-scroll::-webkit-scrollbar-track {
+    @apply bg-blue-50 rounded-full;
+  }
+  
+  .water-scroll::-webkit-scrollbar-thumb {
+    @apply bg-blue-300 rounded-full;
+  }
+  
+  .water-scroll::-webkit-scrollbar-thumb:hover {
+    @apply bg-blue-400;
+  }
+
+  /* Status indicators with enhanced colors */
+  .status-pending {
+    @apply bg-orange-100 text-orange-800 border border-orange-200;
+  }
+  
+  .status-paid {
+    @apply bg-green-100 text-green-800 border border-green-200;
+  }
+  
+  .status-overdue {
+    @apply bg-red-100 text-red-800 border border-red-200;
+  }
+
+  /* Card hover effects */
+  .card-hover {
+    @apply transition-all duration-200 hover:shadow-lg hover:-translate-y-1;
+  }
+
+  /* Water-themed focus states */
+  .water-focus:focus {
+    @apply ring-2 ring-blue-500 ring-offset-2 border-blue-500;
+  }
 }
-.container {
-  text-align: center;
-  max-width: 600px;
+
+/* Loading spinner animation */
+@keyframes water-spin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
 }
-h1.title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  letter-spacing: -0.02em;
+
+.water-spinner {
+  animation: water-spin 2s linear infinite;
 }
-p.description {
-  font-size: 1.125rem;
-  color: var(--text-secondary);
-  margin-bottom: 2rem;
+
+/* Ripple effect for water theme */
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
 }
-.spinner {
-  width: 40px;
-  height: 40px;
-  margin: 2rem auto;
+
+.ripple-effect {
   position: relative;
+  overflow: hidden;
 }
-.spinner::before {
+
+.ripple-effect::before {
   content: '';
   position: absolute;
-  width: 100%;
-  height: 100%;
-  border: 2px solid var(--spinner-border);
-  border-top-color: var(--spinner-border-top);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-.dots {
-  display: flex;
-  justify-content: center;
-  gap: 4px;
-  margin-top: 2rem;
-}
-.dot {
-  width: 4px;
-  height: 4px;
-  background: var(--dot-color);
-  border-radius: 50%;
-  animation: fade 1.4s infinite ease-in-out;
-}
-.dot:nth-child(1) { animation-delay: -0.32s; }
-.dot:nth-child(2) { animation-delay: -0.16s; }
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-@keyframes fade {
-  0%, 80%, 100% { opacity: 0; }
-  40% { opacity: 1; }
-}
-.grid {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background-image: 
-      linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
-  background-size: 24px 24px;
-  transition: background-image 0.3s ease;
-}
-.gradient {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-  background: radial-gradient(circle at center, var(--gradient-color) 0%, transparent 50%);
-  transition: background 0.3s ease;
-}
-
-.footer {
-  position: fixed;
-  bottom: 20px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.9rem;
-  color: var(--text-secondary);
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(59, 130, 246, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
 }
 
-.footer-link {
-  color: var(--text);
-  text-decoration: none;
-  font-weight: bold;
+.ripple-effect:hover::before {
+  width: 300px;
+  height: 300px;
 }
